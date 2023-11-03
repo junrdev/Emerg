@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import ke.ac.emerg.ui.screens.HomeScreen
 import ke.ac.emerg.ui.screens.OnBoarding
 import ke.ac.emerg.ui.screens.Register
 import ke.ac.emerg.ui.screens.SignIn
@@ -41,8 +42,12 @@ fun Navigator(){
             }
         }
 
-        composable(route = AppScreens.HOME.name){
-
+        composable(route = "${AppScreens.HOME.name}/{userid}"){
+            it.arguments?.getString("userid").let {
+                if (it != null) {
+                    HomeScreen(navController = navController, uid = it)
+                }
+            }
         }
 
         composable(route = AppScreens.ACCOUNT_SETTINGS.name){
