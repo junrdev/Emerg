@@ -3,6 +3,7 @@ package ke.ac.emerg.ui.screens
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -10,6 +11,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.rememberTransformableState
+import androidx.compose.foundation.gestures.snapping.SnapFlingBehavior
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
@@ -35,6 +38,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -69,6 +73,10 @@ fun OnBoarding(navController: NavController) {
         PAGER_6
     )
 
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp
+    val screenHeight = configuration.screenHeightDp
+
     val pagerState = rememberPagerState(pageCount = { pages.size })
 
     Box(
@@ -80,21 +88,22 @@ fun OnBoarding(navController: NavController) {
 
         HorizontalPager(
             state = pagerState,
-            modifier = Modifier,
-            pageSize = PageSize.Fill,
-            userScrollEnabled = false
-        ) {
+            modifier = Modifier
+                .fillMaxSize(),
+            userScrollEnabled = false,
 
-            LaunchedEffect(pagerState.currentPage) {
-                while (true) {
-                    delay(autoScrollInterval)
-                    val nextPage = (pagerState.currentPage + 1) % pagerState.pageCount
-                    pagerState.animateScrollToPage(nextPage, animationSpec = tween(300))
-                }
-            }
+            ) {
             PagerScreen(pagerObject = pages[it], it, modifier = Modifier.fillMaxSize())
-
         }
+
+        LaunchedEffect(pagerState.currentPage) {
+            while (true) {
+                delay(autoScrollInterval)
+                val nextPage = (pagerState.currentPage + 1) % pagerState.pageCount
+                pagerState.animateScrollToPage(nextPage, animationSpec = tween(300))
+            }
+        }
+
 
 //        HorizontalPagerIndicator(pagerState = pagerState, pageCount = pagerState.pageCount, modifier = Modifier.align(
 //            Alignment.TopCenter
@@ -118,7 +127,7 @@ fun OnBoarding(navController: NavController) {
                 contentDescription = "get started",
                 modifier = Modifier
                     .align(
-                        if (pagerState.currentPage == pagerState.pageCount -1)
+                        if (pagerState.currentPage == pagerState.pageCount - 1)
                             Alignment.CenterEnd
                         else
                             Alignment.CenterStart
