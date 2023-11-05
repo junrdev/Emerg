@@ -9,3 +9,4 @@ val SIGNUP = "signup"
 
 val regexPattern = """\b[\w.-]+@s\.karu\.ac\.ke\b""".toRegex()
 
+val TESTING_PHONE_NUMBER = "0740848165"

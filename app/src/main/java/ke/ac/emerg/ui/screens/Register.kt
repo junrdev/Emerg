@@ -32,6 +32,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ke.ac.emerg.ui.components.FilledTextField
+import ke.ac.emerg.ui.components.RegistrationNumberTextField
 import ke.ac.emerg.ui.navigation.AppScreens
 import ke.ac.emerg.util.LOGIN
 import ke.ac.emerg.util.SIGNUP
@@ -147,6 +148,10 @@ fun SignIn(navController: NavController) {
     val focusManager = LocalFocusManager.current
     val Kbcontroller = LocalSoftwareKeyboardController.current
 
+    val p1 = remember { mutableStateOf("") }
+    val p2 = remember { mutableStateOf("") }
+    val p3 = remember { mutableStateOf("") }
+
 
     Scaffold(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -170,25 +175,16 @@ fun SignIn(navController: NavController) {
             Spacer(modifier = Modifier.height(15.dp))
 
             //regno
-            FilledTextField(
-                fieldValue = registrationNumber,
-                modifier = Modifier.padding(start = 5.dp, end = 5.dp),
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                placeholder = "Reg No. e.g. P108/1445F/24"
-            )
+            RegistrationNumberTextField(p1 , p2 , p3, modifier = Modifier.padding(10.dp))
 
             Spacer(modifier = Modifier.height(15.dp))
 
             Button(
                 onClick = {
 
-                    if (registrationNumber.value.isNotBlank())
+                    if (p1.value.isNotBlank() && p2.value.isNotBlank() && p3.value.isNotBlank())
                         navController.navigate(
-                            route = "${AppScreens.HOME.name}/${
-                                registrationNumber.value.split(
-                                    "/"
-                                ).joinToString("_")
-                            }"
+                            route = "${AppScreens.HOME.name}/${p1.value}_${p2.value}_${p3.value}"
                         )
 
                 }, modifier = Modifier
