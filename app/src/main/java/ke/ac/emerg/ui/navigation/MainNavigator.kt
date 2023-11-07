@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import ke.ac.emerg.ui.screens.Activities
 import ke.ac.emerg.ui.screens.HomeScreen
 import ke.ac.emerg.ui.screens.OnBoarding
 import ke.ac.emerg.ui.screens.Register
@@ -48,6 +49,10 @@ fun Navigator(){
                     HomeScreen(navController = navController, uid = it)
                 }
             }
+        }
+
+        composable(route = AppScreens.ACTIVITIES.name){
+            Activities(navController)
         }
 
         composable(route = AppScreens.ACCOUNT_SETTINGS.name){

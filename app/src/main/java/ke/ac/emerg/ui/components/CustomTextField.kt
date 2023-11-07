@@ -1,6 +1,5 @@
 package ke.ac.emerg.ui.components
 
-import android.graphics.Paint.Align
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,10 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -30,11 +26,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -46,6 +40,7 @@ import androidx.compose.ui.unit.sp
 import ke.ac.emerg.App
 import ke.ac.emerg.ui.theme.navy_blue
 import ke.ac.emerg.ui.theme.ptsans
+import ke.ac.emerg.ui.theme.trans_sheet
 
 
 @Preview(showSystemUi = true)
@@ -60,9 +55,8 @@ fun DefPreview() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-//            RegistrationNumberTextField()
+            LinedTextField(value = fv, placeholder = "email")
         }
-//        FilledTextField(fieldValue = fv, placeholder = "P108/1445F/24")
     }
 }
 
@@ -106,9 +100,9 @@ fun FilledTextField(
 
 @Composable
 fun RegistrationNumberTextField(
-    p1 : MutableState<String>,
-    p2 : MutableState<String>,
-    p3 : MutableState<String>,
+    p1: MutableState<String>,
+    p2: MutableState<String>,
+    p3: MutableState<String>,
     modifier: Modifier = Modifier
 ) {
 
@@ -250,4 +244,30 @@ fun RegistrationNumberTextField(
 
 
     }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LinedTextField(
+    value: MutableState<String>,
+    placeholder: String,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
+) {
+
+    TextField(
+        value = value.value,
+        onValueChange = { value.value = it },
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = Color.Transparent,
+            focusedIndicatorColor = Color.White,
+            placeholderColor = Color.White,
+            textColor = Color.White
+        ),
+        modifier = Modifier.padding(TextFieldDefaults.textFieldWithLabelPadding()),
+        placeholder = { Text(text = placeholder)},
+        keyboardActions = keyboardActions,
+        keyboardOptions = keyboardOptions,
+    )
 }
