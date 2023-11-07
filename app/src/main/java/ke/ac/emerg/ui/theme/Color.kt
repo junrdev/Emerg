@@ -13,3 +13,4 @@ val navy_blue = Color(0xFFDC0C0C31)
 
 val dutch_white = Color(0xFFE8DAB2)
 val platinum = Color(0xFFEAEAEA)
+val trans_sheet = Color(0x900A0909)
