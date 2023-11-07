@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -49,6 +50,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import ke.ac.emerg.App
+import ke.ac.emerg.ui.navigation.AppScreens
 import ke.ac.emerg.ui.theme.dutch_white
 import ke.ac.emerg.ui.theme.platinum
 import ke.ac.emerg.util.TESTING_PHONE_NUMBER
@@ -59,17 +61,14 @@ fun HomeScreen(navController: NavHostController, uid: String) {
 
     val context = LocalContext.current as ComponentActivity
 
-    val callPermissionState = rememberPermissionState(permission = android.Manifest.permission.CALL_PHONE);
+    val callPermissionState =
+        rememberPermissionState(permission = android.Manifest.permission.CALL_PHONE);
 
     Scaffold(bottomBar = {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 10.dp, end = 15.dp, bottom = 10.dp)
-                .background(
-                    color = platinum,
-                    shape = RoundedCornerShape(corner = CornerSize(15.dp))
-                )
                 .padding(3.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -87,11 +86,11 @@ fun HomeScreen(navController: NavHostController, uid: String) {
 
             IconButton(onClick = {
 
-                if (callPermissionState.status.isGranted){
+                if (callPermissionState.status.isGranted) {
                     val intent = Intent(Intent.ACTION_CALL)
                     intent.data = Uri.parse("tel:$TESTING_PHONE_NUMBER")
                     context.startActivity(intent)
-                }else
+                } else
                     callPermissionState.launchPermissionRequest()
 
 
@@ -100,7 +99,8 @@ fun HomeScreen(navController: NavHostController, uid: String) {
                     imageVector = Icons.Rounded.Call,
                     contentDescription = "Sos",
                     modifier = Modifier
-                        .size(30.dp)
+                        .size(30.dp),
+                    tint = Color.Green
                 )
             }
 
@@ -207,6 +207,7 @@ fun HomeScreen(navController: NavHostController, uid: String) {
                         shape = RoundedCornerShape(corner = CornerSize(10.dp))
                     )
                     .padding(15.dp)
+                    .clickable { navController.navigate(route = "${AppScreens.ACTIVITIES}") }
             ) {
                 Text(text = "Consultation", modifier = Modifier.align(Alignment.CenterStart))
 
