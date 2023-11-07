@@ -1,4 +1,4 @@
-package ke.ac.emerg.domain.model
+package ke.ac.emerg.domain.model.remote
 
 data class AppUser(
     val uid: String,
