@@ -53,7 +53,7 @@ import ke.ac.emerg.App
 import ke.ac.emerg.ui.navigation.AppScreens
 import ke.ac.emerg.ui.theme.dutch_white
 import ke.ac.emerg.ui.theme.platinum
-import ke.ac.emerg.util.TESTING_PHONE_NUMBER
+import ke.ac.emerg.util.CONSTANTS.TESTING_PHONE_NUMBER
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
@@ -64,60 +64,60 @@ fun HomeScreen(navController: NavHostController, uid: String) {
     val callPermissionState =
         rememberPermissionState(permission = android.Manifest.permission.CALL_PHONE);
 
-    Scaffold(bottomBar = {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 10.dp, end = 15.dp, bottom = 10.dp)
-                .padding(3.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
+    Scaffold(
+        bottomBar = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 10.dp, end = 15.dp, bottom = 10.dp)
+                    .padding(3.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
 
 
-            IconButton(onClick = {
-                Log.d("TAG", "HomeScreen: ${navController.currentDestination?.id}")
-            }) {
-                Icon(
-                    imageVector = Icons.Rounded.Info,
-                    contentDescription = "Activities",
-                    modifier = Modifier.size(25.dp)
-                )
+                IconButton(onClick = {
+                    Log.d("TAG", "HomeScreen: ${navController.currentDestination?.id}")
+                }) {
+                    Icon(
+                        imageVector = Icons.Rounded.Info,
+                        contentDescription = "Activities",
+                        modifier = Modifier.size(25.dp)
+                    )
+                }
+
+                IconButton(onClick = {
+
+                    if (callPermissionState.status.isGranted) {
+                        val intent = Intent(Intent.ACTION_CALL)
+                        intent.data = Uri.parse("tel:$TESTING_PHONE_NUMBER")
+                        context.startActivity(intent)
+                    } else
+                        callPermissionState.launchPermissionRequest()
+
+
+                }) {
+                    Icon(
+                        imageVector = Icons.Rounded.Call,
+                        contentDescription = "Sos",
+                        modifier = Modifier
+                            .size(30.dp),
+                        tint = Color.Green
+                    )
+                }
+
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Rounded.Settings,
+                        contentDescription = "Settings",
+                        modifier = Modifier.size(25.dp)
+                    )
+                }
             }
-
-            IconButton(onClick = {
-
-                if (callPermissionState.status.isGranted) {
-                    val intent = Intent(Intent.ACTION_CALL)
-                    intent.data = Uri.parse("tel:$TESTING_PHONE_NUMBER")
-                    context.startActivity(intent)
-                } else
-                    callPermissionState.launchPermissionRequest()
-
-
-            }) {
-                Icon(
-                    imageVector = Icons.Rounded.Call,
-                    contentDescription = "Sos",
-                    modifier = Modifier
-                        .size(30.dp),
-                    tint = Color.Green
-                )
-            }
-
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Rounded.Settings,
-                    contentDescription = "Settings",
-                    modifier = Modifier.size(25.dp)
-                )
-            }
-        }
-    }) {
+        }) {
         Column(
             modifier = Modifier
                 .padding(it)
                 .fillMaxSize(),
-//            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -194,7 +194,7 @@ fun HomeScreen(navController: NavHostController, uid: String) {
                         .padding(end = 10.dp)
                         .padding(5.dp)
                         .clip(CircleShape)
-                        .border(width = 1.5.dp, color = Color.Black)
+//                        .border(width = 1.5.dp, color = Color.Black)
                 )
             }
 
@@ -219,7 +219,7 @@ fun HomeScreen(navController: NavHostController, uid: String) {
                         .padding(end = 10.dp)
                         .padding(5.dp)
                         .clip(CircleShape)
-                        .border(width = 1.5.dp, color = Color.Black)
+//                        .border(width = 1.5.dp, color = Color.Black)
                 )
             }
 
@@ -244,7 +244,7 @@ fun HomeScreen(navController: NavHostController, uid: String) {
                         .padding(end = 10.dp)
                         .padding(5.dp)
                         .clip(CircleShape)
-                        .border(width = 1.5.dp, color = Color.Black)
+//                        .border(width = 1.5.dp, color = Color.Black)
                 )
             }
 

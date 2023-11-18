@@ -11,44 +11,51 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 
-val autoScrollInterval = 8000L
-val LOGIN = "login"
-val SIGNUP = "signup"
-val regexPattern = """\b[\w.-]+@s\.karu\.ac\.ke\b""".toRegex()
-val TESTING_PHONE_NUMBER = "0740848165"
-val BASE_URL = "https://2381-41-89-230-156.ngrok-free.app"
-val API = "$BASE_URL/api/v1"
-val CONSULTATIONS_URL = "$API/consultations"
+object CONSTANTS {
 
 
-enum class CONSULTATION_STATUS {
-    Cleared, Pending, Assigned_doctor, Postponed;
+    val autoScrollInterval = 8000L
+    val LOGIN = "login"
+    val SIGNUP = "signup"
+    val regexPattern = """\b[\w.-]+@s\.karu\.ac\.ke\b""".toRegex()
+    val TESTING_PHONE_NUMBER = "0740848165"
+    val BASE_URL = "https://472d-105-163-157-60.ngrok-free.app"
+    val API = "$BASE_URL/api/v1"
+    val AUTH_API = "$BASE_URL/api/v1/auth"
 
-}
 
-@Composable
-fun getShimmerBrush () : Brush{
-    val shimmerColors = listOf(
-        Color.LightGray.copy(0.6f),
-        Color.LightGray.copy(0.2f),
-        Color.LightGray.copy(0.6f),
-    )
+    enum class CONSULTATION_STATUS {
+        Cleared, Pending, Assigned_doctor, Postponed;
+    }
 
-    val transition = rememberInfiniteTransition()
+//    const val BASE_URL = ""
 
-    val translateAnimation = transition.animateFloat(
-        initialValue = 0f,
-        targetValue = 1000f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1000, easing = FastOutSlowInEasing)
-        ), label = ""
-    )
+    @Composable
+    fun getShimmerBrush(): Brush {
+        val shimmerColors = listOf(
+            Color.LightGray.copy(0.6f),
+            Color.LightGray.copy(0.2f),
+            Color.LightGray.copy(0.6f),
+        )
 
-    val brush = Brush.linearGradient(
-        colors = shimmerColors,
-        start = Offset.Zero,
-        end = Offset(x = translateAnimation.value, y = translateAnimation.value)
-    )
+        val transition = rememberInfiniteTransition()
 
-    return brush
+        val translateAnimation = transition.animateFloat(
+            initialValue = 0f,
+            targetValue = 1000f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(durationMillis = 1000, easing = FastOutSlowInEasing)
+            ), label = ""
+        )
+
+        val brush = Brush.linearGradient(
+            colors = shimmerColors,
+            start = Offset.Zero,
+            end = Offset(x = translateAnimation.value, y = translateAnimation.value)
+        )
+
+        return brush
+    }
+
+
 }

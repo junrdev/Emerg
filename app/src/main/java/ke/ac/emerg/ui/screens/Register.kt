@@ -34,8 +34,7 @@ import androidx.navigation.NavController
 import ke.ac.emerg.ui.components.FilledTextField
 import ke.ac.emerg.ui.components.RegistrationNumberTextField
 import ke.ac.emerg.ui.navigation.AppScreens
-import ke.ac.emerg.util.LOGIN
-import ke.ac.emerg.util.SIGNUP
+import ke.ac.emerg.util.CONSTANTS.LOGIN
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)

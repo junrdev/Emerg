@@ -2,11 +2,6 @@ package ke.ac.emerg.ui.screens
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
@@ -16,20 +11,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AddCircle
@@ -49,7 +40,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -57,10 +47,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import ke.ac.emerg.App
+import ke.ac.emerg.di.ConsultationViewModel
 import ke.ac.emerg.ui.components.LinedTextField
 import ke.ac.emerg.ui.navigation.AppScreens
 import ke.ac.emerg.ui.theme.trans_sheet
-import ke.ac.emerg.util.getShimmerBrush
+import ke.ac.emerg.util.CONSTANTS.getShimmerBrush
 
 @Preview(showSystemUi = true)
 @Composable
@@ -73,9 +64,18 @@ fun Prev2() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Activities(navController: NavController) {
+fun Activities(navController: NavController, consultationViewModel: ConsultationViewModel) {
+
+    val TAG = "Activities"
 
     val brush = getShimmerBrush()
+
+    val consultation = consultationViewModel.consultationList
+
+    if (consultation!!.isNotEmpty())
+        consultation.forEach {
+            Log.d(TAG, "Activities: $it")
+        }
 
     val showCreateSheet = remember {
         mutableStateOf(false)
@@ -87,11 +87,11 @@ fun Activities(navController: NavController) {
             .fillMaxSize(),
         floatingActionButton = {
             Icon(
-                imageVector = Icons.Rounded.AddCircle,
+                imageVector = if (showCreateSheet.value) Icons.Rounded.KeyboardArrowDown else Icons.Rounded.AddCircle,
                 contentDescription = "add consultation",
                 modifier = Modifier
-                    .size(48.dp)
-                    .padding(bottom = 10.dp, end = 10.dp)
+                    .padding(bottom = 30.dp, end = 30.dp)
+                    .size(50.dp)
                     .clickable { showCreateSheet.value = !showCreateSheet.value }
             )
         },
@@ -139,7 +139,7 @@ fun Activities(navController: NavController) {
 
 
             AnimatedVisibility(visible = showCreateSheet.value) {
-                ShowFullScreenSheet{
+                ShowFullScreenSheet {
                     Log.d("TAG", "Activities: $it")
                     showCreateSheet.value = false
                 }
@@ -149,7 +149,7 @@ fun Activities(navController: NavController) {
 }
 
 @Composable
-fun ShowFullScreenSheet(onSaveClick : (description : String) -> Unit) {
+fun ShowFullScreenSheet(onSaveClick: (description: String) -> Unit) {
 
     val description = remember {
         mutableStateOf("")
@@ -162,13 +162,14 @@ fun ShowFullScreenSheet(onSaveClick : (description : String) -> Unit) {
                 shape = RoundedCornerShape(bottomStart = 60.dp, topEnd = 60.dp)
             )
             .alpha(0.7f)
-            .clickable { onSaveClick(description.value) }
-        ,
+            .clickable { onSaveClick(description.value) },
         contentAlignment = Alignment.Center
     ) {
-        Column(modifier = Modifier
-            .align(Alignment.TopStart)
-            .padding(20.dp)) {
+        Column(
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(20.dp)
+        ) {
 
             Text(text = "Create Consultation")
 
@@ -180,7 +181,11 @@ fun ShowFullScreenSheet(onSaveClick : (description : String) -> Unit) {
                     .padding(15.dp),
                 shape = MaterialTheme.shapes.medium
             ) {
-                Row (horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(10.dp)){
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(10.dp)
+                ) {
 
                     Text(text = "Save", modifier = Modifier)
                 }
@@ -262,10 +267,10 @@ fun ConsultationItem(it: Int, brush: Brush, navController: NavController) {
                         onDismissRequest = { showActionMenu.value = false }) {
                         DropdownMenuItem(
                             text = { Text(text = "update") },
-                            onClick = { navController.navigate(route = "${AppScreens.VIEW_CREATE_UPDATE_CONSULTATION}/update") })
+                            onClick = { navController.navigate(route = "${AppScreens.VIEW_CREATE_UPDATE_CONSULTATION}/update/$it") })
                         DropdownMenuItem(
                             text = { Text(text = "delete") },
-                            onClick = { navController.navigate(route = "${AppScreens.VIEW_CREATE_UPDATE_CONSULTATION}/delete") })
+                            onClick = { navController.navigate(route = "${AppScreens.VIEW_CREATE_UPDATE_CONSULTATION}/delete/$it") })
                     }
                 }
 

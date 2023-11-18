@@ -48,8 +48,8 @@ import ke.ac.emerg.App
 import ke.ac.emerg.ui.navigation.AppScreens
 import ke.ac.emerg.ui.screens.PagerObject.*
 import ke.ac.emerg.ui.theme.ptsans
-import ke.ac.emerg.util.SIGNUP
-import ke.ac.emerg.util.autoScrollInterval
+import ke.ac.emerg.util.CONSTANTS.SIGNUP
+import ke.ac.emerg.util.CONSTANTS.autoScrollInterval
 import kotlinx.coroutines.delay
 
 @Preview

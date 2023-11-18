@@ -29,7 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ke.ac.emerg.App
-import ke.ac.emerg.util.getShimmerBrush
+import ke.ac.emerg.util.CONSTANTS.getShimmerBrush
 
 @Preview(showSystemUi = true)
 @Composable
