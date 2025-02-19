@@ -9,8 +9,11 @@ val Pink80 = Color(0xFFEFB8C8)
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
-val navy_blue = Color(0xFFDC0C0C31)
 
-val dutch_white = Color(0xFFE8DAB2)
-val platinum = Color(0xFFEAEAEA)
-val trans_sheet = Color(0x900A0909)
+
+
+val appRed = Color(0xFFF10909)
+val appWhite = Color(0xFFD9D9D9)
+val appGrey = Color(0xFF494848)
+
+

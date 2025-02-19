@@ -3,7 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 
     //hilt
-    id 'kotlin-kapt'
 //    id 'com.google.dagger.hilt.android'
 
 }
@@ -77,9 +76,5 @@ dependencies {
     implementation "cafe.adriel.voyager:voyager-navigator:$voyager"
     // Transitions
     implementation "cafe.adriel.voyager:voyager-transitions:$voyager"
-
-
-
-
 
 }
