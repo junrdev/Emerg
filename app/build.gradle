@@ -69,12 +69,17 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
-    implementation 'androidx.core:core-splashscreen:1.0.1'
-    implementation 'androidx.navigation:navigation-compose:2.8.7'
-
     //permission
     implementation "com.google.accompanist:accompanist-permissions:0.37.0"
 
+    def voyager = "1.1.0-beta02"
+    // Navigator
+    implementation "cafe.adriel.voyager:voyager-navigator:$voyager"
+    // Transitions
+    implementation "cafe.adriel.voyager:voyager-transitions:$voyager"
 
-    //roomnan
+
+
+
+
 }
