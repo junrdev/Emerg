@@ -9,16 +9,27 @@ import androidx.compose.ui.unit.sp
 import ke.ac.emerg.R
 
 // Set of Material typography styles to start with
-val ptsans = FontFamily(
+val karla = FontFamily(
     listOf(
-        Font(R.font.ptsans_regular),
-        Font(R.font.ptsans_italic),
-        Font(R.font.ptsans_bold)
+        Font(R.font.karlabold),
+        Font(R.font.karlabolditalic),
+        Font(R.font.karlaextrabold),
+        Font(R.font.karlaextrabolditalic),
+        Font(R.font.karlaextralight),
+        Font(R.font.karlaextralightitalic),
+        Font(R.font.karlaitalic),
+        Font(R.font.karlalight),
+        Font(R.font.karlalightitalic),
+        Font(R.font.karlamedium),
+        Font(R.font.karlamediumitalic),
+        Font(R.font.karlaregular),
+        Font(R.font.karlasemibold),
+        Font(R.font.karlasemibolditalic),
     )
 )
 val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = ptsans,
+        fontFamily = karla,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
