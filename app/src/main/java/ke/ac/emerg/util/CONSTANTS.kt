@@ -13,22 +13,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 
 object CONSTANTS {
 
-
-    val autoScrollInterval = 8000L
-    val LOGIN = "login"
-    val SIGNUP = "signup"
-    val regexPattern = """\b[\w.-]+@s\.karu\.ac\.ke\b""".toRegex()
-    val TESTING_PHONE_NUMBER = "0740848165"
-    val BASE_URL = "https://472d-105-163-157-60.ngrok-free.app"
-    val API = "$BASE_URL/api/v1"
-    val AUTH_API = "$BASE_URL/api/v1/auth"
-
-
-    enum class CONSULTATION_STATUS {
-        Cleared, Pending, Assigned_doctor, Postponed;
-    }
-
-//    const val BASE_URL = ""
+    private val regexPattern = """\b[\w.-]+@s\.karu\.ac\.ke\b""".toRegex()
+    private val BASE_URL = "https://472d-105-163-157-60.ngrok-free.app"
 
     @Composable
     fun getShimmerBrush(): Brush {
@@ -38,7 +24,7 @@ object CONSTANTS {
             Color.LightGray.copy(0.6f),
         )
 
-        val transition = rememberInfiniteTransition()
+        val transition = rememberInfiniteTransition(label = "")
 
         val translateAnimation = transition.animateFloat(
             initialValue = 0f,
