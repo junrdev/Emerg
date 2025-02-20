@@ -38,6 +38,7 @@ fun ContactCard(
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .padding(4.dp)
             .background(
                 brush = LocalBackgroundBrush.current,
                 shape = RoundedCornerShape(24.dp)
@@ -46,7 +47,7 @@ fun ContactCard(
         Row(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
 
             IconButton(onClick = onEdit) {
@@ -63,9 +64,9 @@ fun ContactCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Text(LoremIpsum(3).values.joinToString(), style = LocalTextStyle.current)
+                    Text(LoremIpsum(2).values.joinToString(), style = LocalTextStyle.current)
                     Spacer(Modifier.width(6.dp))
-                    Text(LoremIpsum(3).values.joinToString(), style = LocalTextStyle.current)
+                    Text(LoremIpsum(2).values.joinToString(), style = LocalTextStyle.current)
                 }
 
                 Text(
