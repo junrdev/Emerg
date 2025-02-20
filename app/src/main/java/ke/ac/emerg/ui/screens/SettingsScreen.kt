@@ -48,6 +48,15 @@ class SettingsScreen : Screen {
             RowWithTitleSubTitleIcon(
                 modifier = Modifier.clickable { },
                 icon = R.drawable.add_user,
+                title = "The sos button",
+                subTitle = "Customize the behavior of the your button.",
+            )
+            Spacer(Modifier.height(24.dp))
+
+
+            RowWithTitleSubTitleIcon(
+                modifier = Modifier.clickable { },
+                icon = R.drawable.add_user,
                 title = "Emergency contacts",
                 subTitle = "Manage your emergency contacts.",
             )
