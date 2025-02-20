@@ -58,7 +58,8 @@ fun InputFieldWithLabel(
                 unfocusedIndicatorColor = Color.Transparent,
                 errorIndicatorColor = Color.Transparent
             ),
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(12.dp),
+            keyboardOptions = keyboardOptions
         )
     }
 
