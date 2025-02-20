@@ -7,15 +7,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.constraintlayout.compose.ConstraintLayout
 import cafe.adriel.voyager.core.screen.Screen
 import ke.ac.emerg.LocalBackgroundBrush
 import ke.ac.emerg.LocalTextStyle
+import ke.ac.emerg.ui.components.AppModalDialog
 import ke.ac.emerg.ui.components.HistoryItem
 import ke.ac.emerg.ui.components.RowWithTitleSubTitleIcon
 import ke.ac.emerg.ui.theme.EmergTheme
@@ -23,6 +29,9 @@ import ke.ac.emerg.ui.theme.EmergTheme
 class HistoryScreen : Screen {
     @Composable
     override fun Content() {
+
+//        val navigator = LocalNavigator.currentOrThrow
+        var showDialog by remember { mutableStateOf(false) }
 
         ConstraintLayout(
             modifier = Modifier
@@ -56,7 +65,9 @@ class HistoryScreen : Screen {
                 }
             }
 
-            TextButton(onClick = {}, modifier = Modifier.constrainAs(clearHistoryBtn){
+            TextButton(onClick = {
+                showDialog = !showDialog
+            }, modifier = Modifier.constrainAs(clearHistoryBtn) {
                 top.linkTo(historyList.bottom, 24.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
@@ -66,6 +77,15 @@ class HistoryScreen : Screen {
                     fontSize = 20.sp
                 ))
             }
+
+            if (showDialog)
+                Dialog(onDismissRequest = {
+                    showDialog = !showDialog
+                }) {
+                    AppModalDialog(
+                        buttonClickAction = { showDialog = !showDialog }
+                    )
+                }
 
         }
 
