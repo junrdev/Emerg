@@ -2,6 +2,7 @@ package ke.ac.emerg.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import ke.ac.emerg.LocalBackgroundBrush
 import ke.ac.emerg.LocalTextStyle
 import ke.ac.emerg.R
@@ -29,6 +32,8 @@ import ke.ac.emerg.ui.theme.EmergTheme
 class LinkToGoogleAccount : Screen {
     @Composable
     override fun Content() {
+
+        val navigator = LocalNavigator.currentOrThrow
 
         ConstraintLayout(
             modifier = Modifier
@@ -75,10 +80,12 @@ class LinkToGoogleAccount : Screen {
                         top.linkTo(supportText.bottom, 120.dp)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-//                        bottom.linkTo(parent.bottom)
                     }
                     .background(color = Color.LightGray, shape = CircleShape)
                     .padding(24.dp)
+                    .clickable { 
+                        navigator push LinkedAccountScreens()
+                    }
                 ,
                 contentAlignment = Alignment.Center
             ) {

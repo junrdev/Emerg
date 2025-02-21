@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import ke.ac.emerg.LocalBackgroundBrush
 import ke.ac.emerg.LocalTextStyle
 import ke.ac.emerg.R
@@ -35,6 +37,11 @@ import ke.ac.emerg.ui.theme.appWhite
 class LinkedAccountScreens : Screen {
     @Composable
     override fun Content() {
+        
+        
+        val navigator = LocalNavigator.currentOrThrow
+
+
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize()
@@ -52,7 +59,8 @@ class LinkedAccountScreens : Screen {
                     top.linkTo(parent.top, 12.dp)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                }
+                },
+                onNavigationClick = {navigator.pop()}
             )
 
 
