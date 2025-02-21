@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -29,7 +30,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -45,7 +49,6 @@ import androidx.compose.ui.window.Dialog
 import ke.ac.emerg.LocalTextStyle
 import ke.ac.emerg.R
 import ke.ac.emerg.ui.theme.EmergTheme
-import ke.ac.emerg.ui.theme.appGrey
 import ke.ac.emerg.ui.theme.appRed
 import ke.ac.emerg.ui.theme.appWhite
 
@@ -59,6 +62,8 @@ fun AddContactForm(modifier: Modifier = Modifier) {
     val (relationShip, setRelationShip) = remember { mutableStateOf("") }
     var showInfoDialog by remember { mutableStateOf(false) }
 
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
         modifier = modifier
@@ -107,7 +112,7 @@ fun AddContactForm(modifier: Modifier = Modifier) {
             onValueChange = setFullName,
             placeHolder = "john doe",
             keyboardActions = KeyboardActions(onNext = {
-
+                focusManager.moveFocus(FocusDirection.Down)
             }),
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next,
@@ -122,7 +127,7 @@ fun AddContactForm(modifier: Modifier = Modifier) {
             onValueChange = setPhoneNumber,
             placeHolder = "254 xxx ...",
             keyboardActions = KeyboardActions(onNext = {
-
+                focusManager.moveFocus(FocusDirection.Down)
             }),
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next,
@@ -138,6 +143,7 @@ fun AddContactForm(modifier: Modifier = Modifier) {
             onValueChange = setEmail,
             placeHolder = "jd@dev.io",
             keyboardActions = KeyboardActions(onNext = {
+                focusManager.moveFocus(FocusDirection.Down)
 
             }),
             keyboardOptions = KeyboardOptions(
@@ -154,7 +160,8 @@ fun AddContactForm(modifier: Modifier = Modifier) {
                 onValueChange = setRelationShip,
                 placeHolder = "pal",
                 keyboardActions = KeyboardActions(onNext = {
-
+                    keyboardController?.hide()
+                    focusManager.clearFocus()
                 }),
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Next,
@@ -238,8 +245,13 @@ fun AddContactForm(modifier: Modifier = Modifier) {
 
 
         Button(onClick = {}, colors = ButtonDefaults.buttonColors(
-            containerColor = appGrey
-        )) {
+            containerColor = appWhite,
+            contentColor = appRed
+        ),
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier.fillMaxWidth(),
+            contentPadding = ButtonDefaults.TextButtonContentPadding
+        ) {
             Text(text = "Save Contact", style = LocalTextStyle.current)
         }
 

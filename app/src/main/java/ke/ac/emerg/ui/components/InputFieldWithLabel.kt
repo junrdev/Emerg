@@ -25,6 +25,7 @@ import ke.ac.emerg.ui.theme.appWhite
 fun InputFieldWithLabel(
     modifier: Modifier = Modifier,
     value: String = "",
+    enabled : Boolean = true,
     onValueChange: (String) -> Unit = {},
     label: String = LoremIpsum(2).values.joinToString(),
     placeHolder: String = LoremIpsum(2).values.joinToString(),
@@ -41,6 +42,7 @@ fun InputFieldWithLabel(
 
         TextField(
             value = value,
+            enabled = enabled,
             onValueChange = onValueChange,
             modifier = Modifier.fillMaxWidth(),
             placeholder = {

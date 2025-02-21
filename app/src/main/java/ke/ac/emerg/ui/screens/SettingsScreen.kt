@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,6 +32,7 @@ class SettingsScreen : Screen {
 
         Column(
             modifier = Modifier
+                .safeDrawingPadding()
                 .fillMaxSize()
                 .background(brush = LocalBackgroundBrush.current)
                 .padding(12.dp)
@@ -46,7 +49,9 @@ class SettingsScreen : Screen {
             Spacer(Modifier.height(50.dp))
 
             RowWithTitleSubTitleIcon(
-                modifier = Modifier.clickable { },
+                modifier = Modifier.clickable {
+                    navigator push CustomizeSosButtonScreen()
+                },
                 icon = R.drawable.add_user,
                 title = "The sos button",
                 subTitle = "Customize the behavior of the your button.",
@@ -55,7 +60,9 @@ class SettingsScreen : Screen {
 
 
             RowWithTitleSubTitleIcon(
-                modifier = Modifier.clickable { },
+                modifier = Modifier.clickable {
+                    navigator push (ContactsScreen())
+                },
                 icon = R.drawable.add_user,
                 title = "Emergency contacts",
                 subTitle = "Manage your emergency contacts.",
@@ -64,7 +71,9 @@ class SettingsScreen : Screen {
 
 
             RowWithTitleSubTitleIcon(
-                modifier = Modifier.clickable { },
+                modifier = Modifier.clickable {
+                    navigator push (LinkToGoogleAccount())
+                },
                 icon = R.drawable.user,
                 title = "Account & Profile",
                 subTitle = "Link & manage account.",
@@ -73,7 +82,9 @@ class SettingsScreen : Screen {
 
 
             RowWithTitleSubTitleIcon(
-                modifier = Modifier.clickable { },
+                modifier = Modifier.clickable {
+                    navigator push HistoryScreen()
+                },
                 icon = R.drawable.history,
                 title = "History",
                 subTitle = "View your time on Emerge.",
@@ -81,13 +92,14 @@ class SettingsScreen : Screen {
             Spacer(Modifier.height(24.dp))
 
             RowWithTitleSubTitleIcon(
-                modifier = Modifier.clickable { },
+                modifier = Modifier.clickable {
+                    navigator push StatsScreen()
+                },
                 icon = R.drawable.stats,
                 title = "Your Medical stats",
                 subTitle = "Keep track of your medical vitals.",
             )
             Spacer(Modifier.height(24.dp))
-
 
             Spacer(Modifier.weight(1f))
 
@@ -96,7 +108,8 @@ class SettingsScreen : Screen {
                 text = "Version 1.001",
                 style = LocalTextStyle.current.copy(
                     color = Color.LightGray
-                )
+                ),
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
 

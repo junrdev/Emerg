@@ -35,6 +35,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import ke.ac.emerg.LocalBackgroundBrush
 import ke.ac.emerg.LocalTextStyle
 import ke.ac.emerg.R
@@ -49,7 +51,7 @@ class ContactsScreen:Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
-//        val navigator = LocalNavigator.currentOrThrow
+        val navigator = LocalNavigator.currentOrThrow
 
         var isAddContactSheetShown by remember { mutableStateOf(false) }
         val scope = rememberCoroutineScope()
@@ -72,6 +74,9 @@ class ContactsScreen:Screen {
                             contentDescription = null
                         )
                     }
+                },
+                onNavigationClick = {
+                    navigator.pop()
                 },
                 modifier = Modifier.constrainAs(topBar) {
                     top.linkTo(parent.top)

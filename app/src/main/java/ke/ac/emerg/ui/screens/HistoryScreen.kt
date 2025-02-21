@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -19,6 +21,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.constraintlayout.compose.ConstraintLayout
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import ke.ac.emerg.LocalBackgroundBrush
 import ke.ac.emerg.LocalTextStyle
 import ke.ac.emerg.ui.components.AppModalDialog
@@ -30,7 +34,7 @@ class HistoryScreen : Screen {
     @Composable
     override fun Content() {
 
-//        val navigator = LocalNavigator.currentOrThrow
+        val navigator = LocalNavigator.currentOrThrow
         var showDialog by remember { mutableStateOf(false) }
 
         ConstraintLayout(
@@ -49,18 +53,22 @@ class HistoryScreen : Screen {
                     top.linkTo(parent.top, 12.dp)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                }
+                },
+                onNavigationClick = { navigator.pop() }
             )
+            val scrollState = rememberScrollState()
 
             Column(
                 modifier = Modifier
                     .constrainAs(historyList) {
-                        top.linkTo(appBar.bottom, 32.dp)
+                        top.linkTo(appBar.bottom, 48.dp)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
                     }
+                    .verticalScroll(scrollState)
             ) {
-                repeat(5) {
+                repeat(30) {
                     HistoryItem()
                 }
             }
@@ -68,8 +76,9 @@ class HistoryScreen : Screen {
             TextButton(onClick = {
                 showDialog = !showDialog
             }, modifier = Modifier.constrainAs(clearHistoryBtn) {
-                top.linkTo(historyList.bottom, 24.dp)
+//                top.linkTo(historyList.bottom, 24.dp)
                 start.linkTo(parent.start)
+                bottom.linkTo(parent.bottom)
                 end.linkTo(parent.end)
             }) {
                 Text(text = "Clear history", style = LocalTextStyle.current.copy(

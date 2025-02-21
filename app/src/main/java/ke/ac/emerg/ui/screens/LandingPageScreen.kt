@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import ke.ac.emerg.LocalBackgroundBrush
 import ke.ac.emerg.LocalTextStyle
 import ke.ac.emerg.R
@@ -41,6 +44,7 @@ class LandingPageScreen : Screen {
     @Composable
     override fun Content() {
 
+        val navigator = LocalNavigator.currentOrThrow
 
         ConstraintLayout(
             modifier = Modifier
@@ -59,6 +63,9 @@ class LandingPageScreen : Screen {
                     .constrainAs(settings) {
                         top.linkTo(parent.top, margin = 24.dp)
                         end.linkTo(parent.end, margin = 24.dp)
+                    }
+                    .clickable {
+                        navigator push(SettingsScreen())
                     }
             )
 
