@@ -6,6 +6,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -16,13 +21,17 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import ke.ac.emerg.LocalBackgroundBrush
 import ke.ac.emerg.ui.components.InputFieldWithLabelAndInfo
+import ke.ac.emerg.ui.components.RowWithTitleSubTitleIcon
+import ke.ac.emerg.ui.theme.EmergTheme
 
 class RecordStatScreen : Screen {
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
 
@@ -42,53 +51,70 @@ class RecordStatScreen : Screen {
             modifier = Modifier
                 .fillMaxSize()
                 .background(brush = LocalBackgroundBrush.current)
-                .padding(12.dp)
         ) {
 
-            InputFieldWithLabelAndInfo(
-                value = weight,
-                label = "Weight",
-                placeHolder = "e.g 34",
-                onValueChange = setWeight,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Decimal
-                ),
-                keyboardActions = KeyboardActions(onNext = {
-                    focusManager.moveFocus(FocusDirection.Down)
-                })
+            RowWithTitleSubTitleIcon(
+                title = "Keep Track",
+                subTitle = "Record your stats, keep track of your vitals.",
+                actions = {
+                    IconButton(onClick = {}) {
+                        Icon(imageVector = Icons.Rounded.Add, contentDescription = null)
+                    }
+                }
             )
 
-            InputFieldWithLabelAndInfo(
-                value = height,
-                label = "Height",
-                placeHolder = "e.g 134",
-                onValueChange = setHeight,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done,
-                    keyboardType = KeyboardType.Decimal
-                ),
-                keyboardActions = KeyboardActions(onNext = {
-                    keyboardController?.hide()
-                    focusManager.clearFocus()
-                })
-            )
 
-            InputFieldWithLabelAndInfo(
-                value = bmi,
-                label = "BMI",
-                enabled = false,
-                placeHolder = "e.g 134",
-                onValueChange = { /*setBmi*/ },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Decimal
-                ),
-                keyboardActions = KeyboardActions(onNext = {
-                    focusManager.moveFocus(FocusDirection.Down)
-                })
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(12.dp)
+            ) {
 
+                InputFieldWithLabelAndInfo(
+                    value = weight,
+                    label = "Weight",
+                    placeHolder = "e.g 34",
+                    onValueChange = setWeight,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next,
+                        keyboardType = KeyboardType.Decimal
+                    ),
+                    keyboardActions = KeyboardActions(onNext = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    })
+                )
+
+
+                InputFieldWithLabelAndInfo(
+                    value = height,
+                    label = "Height",
+                    placeHolder = "e.g 134",
+                    onValueChange = setHeight,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done,
+                        keyboardType = KeyboardType.Decimal
+                    ),
+                    keyboardActions = KeyboardActions(onNext = {
+                        keyboardController?.hide()
+                        focusManager.clearFocus()
+                    })
+                )
+
+                InputFieldWithLabelAndInfo(
+                    value = bmi,
+                    label = "BMI",
+                    enabled = false,
+                    placeHolder = "calculated field",
+                    onValueChange = { /*setBmi*/ },
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next,
+                        keyboardType = KeyboardType.Decimal
+                    ),
+                    keyboardActions = KeyboardActions(onNext = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    })
+                )
+            }
 
         }
 
@@ -96,3 +122,13 @@ class RecordStatScreen : Screen {
     }
 
 }
+
+
+@Preview
+@Composable
+private fun RecordStatScreenPrev() {
+    EmergTheme {
+        RecordStatScreen().Content()
+    }
+}
+
